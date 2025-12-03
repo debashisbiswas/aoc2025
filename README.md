@@ -12,6 +12,15 @@ Not using LLMs to solve the problems directly, but still using them to ask
 specific questions, such as "why doesn't TypeScript infer the correct return
 type when I'm returning an object property with a narrowed type"?
 
+From https://adventofcode.com/2025/about#faq_num_days:
+
+> *Should I use AI to solve Advent of Code puzzles?* No. If you send a friend to
+> the gym on your behalf, would you expect to get stronger? Advent of Code
+> puzzles are designed to be interesting for humans to solve - no consideration
+> is made for whether AI can or cannot solve a puzzle. If you want practice
+> prompting an AI, there are almost certainly better exercises elsewhere
+> designed with that in mind.
+
 ## Running and testing solutions
 
 ```sh
