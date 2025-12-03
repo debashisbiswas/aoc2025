@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { parseRotation, rotate, solve } from "./index"
+import { parseRotation, rotate, solvePart1, solvePart2 } from "./index"
 
 test("rotate left", () => {
   expect(rotate(50, "L", 30)).toBe(20)
@@ -49,20 +49,27 @@ test("parse rotation errors", () => {
   expect(() => parseRotation("R")).toThrowError()
 })
 
-test("solve test input", () => {
-  const rotations = [
-    "L68",
-    "L30",
-    "R48",
-    "L5",
-    "R60",
-    "L55",
-    "L1",
-    "L99",
-    "R14",
-    "L82",
-  ].map(parseRotation)
+const exampleRotations = [
+  "L68",
+  "L30",
+  "R48",
+  "L5",
+  "R60",
+  "L55",
+  "L1",
+  "L99",
+  "R14",
+  "L82",
+]
 
-  const password = solve(rotations)
+test("solve test input - part 1", () => {
+  const rotations = exampleRotations.map(parseRotation)
+  const password = solvePart1(rotations)
   expect(password).toBe(3)
+})
+
+test("solve test input - part 2", () => {
+  const rotations = exampleRotations.map(parseRotation)
+  const password = solvePart2(rotations)
+  expect(password).toBe(6)
 })

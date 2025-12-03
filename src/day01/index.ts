@@ -49,7 +49,7 @@ export const parseRotation = (s: string) => {
   } as const // preserve narrowed direction type
 }
 
-export const solve = (rotations: ReturnType<typeof parseRotation>[]) => {
+export const solvePart1 = (rotations: ReturnType<typeof parseRotation>[]) => {
   let dial = 50
   let password = 0
 
@@ -61,6 +61,21 @@ export const solve = (rotations: ReturnType<typeof parseRotation>[]) => {
   return password
 }
 
+export const solvePart2 = (rotations: ReturnType<typeof parseRotation>[]) => {
+  const reducedRotations: typeof rotations = []
+
+  rotations.forEach(({ direction, amount }) => {
+    for (let i = 0; i < amount; i++) {
+      reducedRotations.push({
+        direction,
+        amount: 1,
+      })
+    }
+  })
+
+  return solvePart1(reducedRotations)
+}
+
 const file = Bun.file("src/inputs/day01.txt")
 const text = await file.text()
 
@@ -69,4 +84,5 @@ const rotations = text
   .filter((line) => line.length > 0)
   .map(parseRotation)
 
-console.log(solve(rotations))
+console.log(`Part 1: ${solvePart1(rotations)}`)
+console.log(`Part 2: ${solvePart2(rotations)}`)
