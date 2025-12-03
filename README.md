@@ -11,3 +11,11 @@ but would likely add too much friction to me completing all challenges.
 Not using LLMs to solve the problems directly, but still using them to ask
 specific questions, such as "why doesn't TypeScript infer the correct return
 type when I'm returning an object property with a narrowed type"?
+
+## Running and testing solutions
+
+```sh
+bun run src/day01
+bun test src/day01
+```
+
