@@ -16,6 +16,10 @@ export const validID = (id: string) => {
   return true
 }
 
+export const validIDPart2 = (id: string) => {
+  return !/^(.*)\1+$/.test(id)
+}
+
 export const solvePart1 = (input: string) => {
   const pairs = input.split(",").map((s) => s.trim())
 
@@ -41,9 +45,33 @@ export const solvePart1 = (input: string) => {
   return sum
 }
 
-export const solvePart2 = () => {}
+export const solvePart2 = (input: string) => {
+  const pairs = input.split(",").map((s) => s.trim())
+
+  let sum = 0
+  for (const pair of pairs) {
+    const [left, right] = pair.split("-").map(Number)
+
+    if (left == null) {
+      throw Error(`left is null? ${left}`)
+    }
+
+    if (right == null) {
+      throw Error(`right is null? ${right}`)
+    }
+
+    for (let num = left; num <= right; num++) {
+      if (!validIDPart2(String(num))) {
+        sum += num
+      }
+    }
+  }
+
+  return sum
+}
 
 const file = Bun.file("src/inputs/day02.txt")
 const text = await file.text()
 
-console.log(solvePart1(text))
+console.log(`Part 1: ${solvePart1(text)}`)
+console.log(`Part 2: ${solvePart2(text)}`)
