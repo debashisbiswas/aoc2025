@@ -12,6 +12,10 @@ Not using LLMs to solve the problems directly, but still using them to ask
 specific questions, such as "why doesn't TypeScript infer the correct return
 type when I'm returning an object property with a narrowed type"?
 
+This repo, the tests, and the code are not great examples of the best way to
+structure a project. The structure of the repo is just enough to give me an
+environment to solve the problems.
+
 From https://adventofcode.com/2025/about#faq_num_days:
 
 > *Should I use AI to solve Advent of Code puzzles?* No. If you send a friend to
