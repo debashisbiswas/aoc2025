@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { makeRange, parseRange, solvePart1, solvePart2 } from "./index"
+import { parseRange, Range, solvePart1, solvePart2 } from "./index"
 
 const example = {
   ranges: ["3-5", "10-14", "16-20", "12-18"].map(parseRange),
@@ -7,11 +7,11 @@ const example = {
 }
 
 test("parse range", () => {
-  expect(parseRange("3-5")).toMatchObject(makeRange(3, 5))
+  expect(parseRange("3-5")).toMatchObject(new Range(3, 5))
 })
 
 test("range", () => {
-  const range = makeRange(10, 20)
+  const range = new Range(10, 20)
   expect(range.contains(9)).toBeFalse()
   expect(range.contains(10)).toBeTrue()
   expect(range.contains(15)).toBeTrue()
@@ -20,14 +20,14 @@ test("range", () => {
 })
 
 test("range length", () => {
-  const range = makeRange(3, 5)
+  const range = new Range(3, 5)
   expect(range.lengthInclusive()).toBe(3)
 })
 
 test("range overlaps", () => {
-  expect(makeRange(3, 5).overlaps(makeRange(10, 12))).toBeFalse()
-  expect(makeRange(3, 5).overlaps(makeRange(4, 10))).toBeTrue()
-  expect(makeRange(3, 5).overlaps(makeRange(5, 10))).toBeTrue()
+  expect(new Range(3, 5).overlaps(new Range(10, 12))).toBeFalse()
+  expect(new Range(3, 5).overlaps(new Range(4, 10))).toBeTrue()
+  expect(new Range(3, 5).overlaps(new Range(5, 10))).toBeTrue()
 })
 
 test("solve part 1", () => {

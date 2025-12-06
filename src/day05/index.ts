@@ -1,4 +1,4 @@
-class Range {
+export class Range {
   left: number
   right: number
 
@@ -6,6 +6,8 @@ class Range {
     this.left = left
     this.right = right
   }
+
+  toString = () => `${this.left}-${this.right}`
 
   contains = (n: number) => n >= this.left && n <= this.right
   lengthInclusive = () => this.right - this.left + 1
@@ -19,11 +21,9 @@ class Range {
   }
 }
 
-export const makeRange = (left: number, right: number) => new Range(left, right)
-
 export const parseRange = (s: string) => {
   const [left, right] = s.split("-")
-  return makeRange(+left!, +right!)
+  return new Range(+left!, +right!)
 }
 
 export const solvePart1 = (ranges: Range[], ids: number[]) => {
@@ -42,27 +42,27 @@ export const solvePart1 = (ranges: Range[], ids: number[]) => {
 }
 
 export const solvePart2 = (ranges: Range[]) => {
-  const reducedRanges = new Set<Range>()
+  const sortedRanges = ranges.sort((a, b) => a.left - b.left)
 
-  for (const range of ranges) {
-    let accounted = false
+  let sum = 0
+  let currentRange: Range | undefined = undefined
 
-    for (const rr of reducedRanges.keys()) {
-      console.log(rr)
-      if (range.overlaps(rr)) {
-        reducedRanges.delete(rr)
-        reducedRanges.add(range.merge(rr))
-        accounted = true
-      }
+  for (const range of sortedRanges) {
+    if (!currentRange) currentRange = range
+
+    if (currentRange.overlaps(range)) {
+      currentRange = currentRange.merge(range)
+    } else {
+      sum += currentRange.lengthInclusive()
+      currentRange = range
     }
-
-    if (!accounted) reducedRanges.add(range)
   }
 
-  return reducedRanges
-    .keys()
-    .map((range) => range.lengthInclusive())
-    .reduce((prev, curr) => prev + curr, 0)
+  if (currentRange) {
+    sum += currentRange.lengthInclusive()
+  }
+
+  return sum
 }
 
 const file = Bun.file("src/inputs/day05.txt")
@@ -79,4 +79,4 @@ const ids = parts[1]!
   .map((s) => +s)
 
 console.log(`Part 1: ${solvePart1(ranges, ids)}`)
-// console.log(`Part 2: ${solvePart2(ranges)}`)
+console.log(`Part 2: ${solvePart2(ranges)}`)
